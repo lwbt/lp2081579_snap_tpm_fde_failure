@@ -11,7 +11,7 @@
 :caution-caption: 🔥
 :important-caption: ❗
 
-// cspell:ignore
+// cspell:ignore NVME mountpoints oneshot nvme
 
 WARNING: Work in progress.
 
@@ -110,10 +110,10 @@ systemctl --user list-timers snap-tpm-fde-check.timer
 ** Press `:` to enter command mode
 ** Enter this command `%s/nvme_1/nvme_2/gc`.
    Replace `_1` with the previous device number and `_2` with the current device number without under scores.
-   Hit enter and confirm every occurence with `y`.
+   Hit enter and confirm every occurrence with `y`.
 ** Close vim with `:wq`
 * Check that `snap list` can be executed.
-** If it does not execute within a few seconds check `systemctl --failed` and further investgate or restart failed units.
+** If it does not execute within a few seconds check `systemctl --failed` and further investigate or restart failed units.
 
 [TIP]
 ====
@@ -121,4 +121,11 @@ Ubuntu started to ship `vim-tiny` by default, you might want to install and use
 the full vim package (the command stays the same) or another editor that is
 safe to use with administrative privileges and with which you are comfortable
 with.
+====
+
+[IMPORTANT]
+====
+The full script can automatically fix the file when `fix` is provided as the first parameter.
+While this is the most comfortable way, it is also a risk, because you are changing data of a publicly not well documented file.
+I recommend to always check the modifications made and if the data structure has changed.
 ====
