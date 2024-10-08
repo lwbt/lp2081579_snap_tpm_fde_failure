@@ -15,10 +15,6 @@
 
 WARNING: Work in progress.
 
-== TODO
-
-service and timer unit files
-
 == The mitigation strategy
 
 If you have more than one NVME drive, and you can observe that your setup changes the ordering of the drives,
