@@ -21,10 +21,14 @@ change the ordering of the NVME drives, which causes problems with the, currentl
 
 Identification:
 
-- The system boots up in *normal mode* and shows the *graphical spinner during boot* with black background
-- The system boots up in *failure mode* and only shows the *text spinner during boot* with purple background
+* The system boots up in *normal mode* and shows the *graphical spinner during boot* with black background
++
+image:images/boot_normal.png[]
+
+* The system boots up in *failure mode* and only shows the *text spinner during boot* with purple background
   (depends on chosen theme, purple is for the default Ubuntu Gnome Desktop),
   it will boot to the graphical display manager just fine, but functionality like previously imported Zpools won't be imported
+image:images/boot_failure.png[]
 
 == Quick fix
 
