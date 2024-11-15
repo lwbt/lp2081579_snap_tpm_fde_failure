@@ -13,8 +13,6 @@
 
 // cspell:ignore NVME mountpoints oneshot nvme Zpools bootable
 
-WARNING: Work in progress.
-
 == Observation
 
 An affected system fails to boot properly.
