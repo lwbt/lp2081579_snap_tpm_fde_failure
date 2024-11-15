@@ -11,21 +11,42 @@
 :caution-caption: 🔥
 :important-caption: ❗
 
-// cspell:ignore NVME mountpoints oneshot nvme
+// cspell:ignore NVME mountpoints oneshot nvme Zpools bootable
 
 WARNING: Work in progress.
 
-== The mitigation strategy
+== Observation
+
+An affected system fails to boot properly.
+Systems with more than one NVME drive, and eventually one ore more PCI-E quad M.2 expansion cards,
+change the ordering of the NVME drives, which causes problems with the, currently experimental, TPM FDE encryption.
+
+Identification:
+
+- The system boots up in *normal mode* and shows the *graphical spinner during boot* with black background
+- The system boots up in *failure mode* and only shows the *text spinner during boot* with purple background
+  (depends on chosen theme, purple is for the default Ubuntu Gnome Desktop),
+  it will boot to the graphical display manager just fine, but functionality like previously imported Zpools won't be imported
+
+== Quick fix
+
+On some setups, like mine, it helps to press kbd:[Ctrl+Alt+Del] as soon as you see the text spinner to trigger a reboot.
+The following boot usually boots in normal mode and nothing needs to be done.
+All previously imported Zpools will be available.
+Snapd will be working as expected.
+
+== Detecting and fixing the disk mapping
 
 If you have more than one NVME drive, and you can observe that your setup changes the ordering of the drives,
 then it is likely that you will encounter problems with the, currently experimental, TPM FDE encryption.
 
-Since the file `/var/lib/snapd/device/disk-mapping.json` is readable by any user on the machine and every user can run `lsblk`.
-I wrote a script that will inform you when your setup has changed.
-So you can take preventive action and maintenance.
+The file `/var/lib/snapd/device/disk-mapping.json` is readable by any user on the machine and every user can run `lsblk`.
+I wrote a script that will inform you when your setup has changed and your root partition is mounted from a different drive.
+You should then take preventive action and maintenance before any updates get installed which may render the system not bootable or not repairable.
+
 At the moment you will also notice that snapd stops working, but my hope is that this issue gets resolved before the disk mapping issue.
 
-== Setup
+=== Setup of the script
 
 [source,bash]
 ----
@@ -98,7 +119,7 @@ systemctl --user status snap-tpm-fde-check.service
 systemctl --user list-timers snap-tpm-fde-check.timer
 ----
 
-== Fixing the issue after detection
+=== Fixing the issue after detection
 
 * Make a backup copy of the file `/var/lib/snapd/device/disk-mapping.json`
 * Edit the file: +
